@@ -1,4 +1,4 @@
-package com.springboot.learnrestapi.entities;
+package com.springboot.learnrestapi.model.entities;
 
 import java.io.Serializable;
 

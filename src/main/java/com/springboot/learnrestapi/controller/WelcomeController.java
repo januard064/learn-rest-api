@@ -1,4 +1,4 @@
-package com.springboot.learnrestapi;
+package com.springboot.learnrestapi.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
