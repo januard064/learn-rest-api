@@ -20,7 +20,6 @@ import com.springboot.learnrestapi.services.ProductService;
 
 import jakarta.validation.Valid;
 
-
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -68,9 +67,27 @@ public class ProductController {
 		return productService.findOne(id);
 	}
 
+//	@PutMapping
+//	public Product update(@RequestBody Product product) {
+//		return productService.save(product);
+//	}
+
 	@PutMapping
-	public Product update(@RequestBody Product product) {
-		return productService.save(product);
+	public ResponseEntity<ResponseData<Product>> update(@Valid @RequestBody Product product, Errors errors) {
+		
+		ResponseData<Product> responseData = new ResponseData<>();
+		
+		if(errors.hasErrors()) {
+			for(ObjectError error: errors.getAllErrors()) {
+				responseData.getMessages().add(error.getDefaultMessage());
+			}
+			responseData.setStatus(false);
+			responseData.setPayload(null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+		}
+		responseData.setStatus(true);
+		responseData.setPayload(productService.save(product));
+		return ResponseEntity.ok(responseData);
 	}
 
 	@DeleteMapping("/{id}")
